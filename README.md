@@ -27,26 +27,22 @@ Terms :
     Created an algorithim that first calculated the efficiency and break_even_day of each machine. The algorithims then recursivley found the best possible  
     combination of machines using Dynamic Programming.
     
-    The program used 2 optimizations that improved it over brute force:
-    Optimization 1 (Pruning) :
+The program used 2 optimizations that improved it over brute force:
+ Optimization 1 (Pruning) :
       Similar to the strategy of the greedy algorithim the recursive solution does a pruning step in which any machine that is both less efficient and has a later
       Break_even_Day is removed. This solves the failure point of our greedy algorithim as it now takes in to account that we may want a less efficient machine if        
       it has an earlier break_even_day.
       
-     Optimization 2 (Memoization) :
-      Memoization was done saving results at even given level in the recursive tree (see tree below). If our previous results at the same level in the tree had   
-      both more total_capital and more efficiency at the same level then we know our resulting cash will be lower than when we had more money and efficiency. If 
-      the effiency and total_capital are the same then we know we ahve also slready computed the results.
-      
-      For this step it is important to note that we should try the Buy branches of the tree first before the not Buy branches as buying a given machine will give 
-      us the possibility of having more money and efficiency. 
+  Optimization 2 (Memoization) :
+  Memoization was done saving results at even given level in the recursive tree (see tree below). If our previous results at the same level in the tree had both more total_capital and more efficiency at the same level then we know our resulting cash will be lower than when we had more money and efficiency. If the effiency and total_capital are the same then we know we ahve also slready computed the results.(For this step it is important to note that we should try the Buy branches of the tree first before the not Buy branches as buying a given machine will give us the possibility of having more money and efficiency.)
       
 Tree:
-      /M3
-   /M2\M3
- M1
-   \M2/M3
-      \M3
+
+          /M3
+       /M2\M3
+     M1
+       \M2/M3
+          \M3
   
   **Failure point**
   RecursionError: maximum recursion depth exceeded while calling a Python object
