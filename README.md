@@ -2,11 +2,11 @@
 
 ## Running the Project :
 #### Dependecies:
-Python3 \
+python3 \
 pip install dataclasses 
 
 Run:   
-Python3 final_solution.py
+python3 final_solution.py
 
 
 ## Terms :
