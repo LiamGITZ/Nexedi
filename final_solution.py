@@ -87,7 +87,7 @@ def find_max_profit(machines, starting_money, num_days):
 
 
 
-f = open('test.txt', 'r')
+f = open('input.txt', 'r')
 
 test_case = f.readline().rstrip().split(' ')
 case_num = 1
