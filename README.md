@@ -9,18 +9,14 @@ Terms :
   = Purchased_day + ceil((price-resale) / daily_profit_generated)
 
 #Greedy Algorithim ~(1.5 hrs) : 
-  Created an algorithim that first calculated the efficiency of each machine. The program then walked through the list of machines calculating if purchasing any
-  given machine would be a net positive income before the next even more efficient machine and if it was net positive would purchase the machine.
-  This approach does a decently good job of predicting the most optimal machines however it does have a flaw if the next purchaseable machine is not the next more 
-  efficient machine. 
+  Created an algorithim that first calculated the efficiency of each machine. The program then walked through the list of machines calculating if purchasing any given machine would be a net positive income before the next even more efficient machine and if it was net positive would purchase the machine This approach does a decently good job of predicting the most optimal machines however it does have a flaw if the next purchaseable machine is not the next more efficient machine. 
   
   **Failure point**
-  Day1:----------------------------------->Day6-->Day8 
-  Current_machine(lowest efficiency)------>next_machine(slightly more efficienct)-->last_machine(most efficient) 
   
-  For example in the diagram above if the Current_machine's break even day was on the seventh day our current algorithim would not purchase it as it would not make 
-  us money before the next most effiecent machine however in this case we do want to purchase the Current_machine because we will not be purchasing the next_machine 
-  and will instead be purchasing the last_machine giving us more than enough time to break_even.
+    Day1:----------------------------------->Day6-->Day8 
+    Current_machine(lowest efficiency)------>next_machine(slightly more efficienct)-->last_machine(most efficient) 
+  
+ For example in the diagram above if the Current_machine's break even day was on the seventh day our current algorithim would not purchase it as it would not make us money before the next most effiecent machine however in this case we do want to purchase the Current_machine because we will not be purchasing the next_machine and will instead be purchasing the last_machine giving us more than enough time to break_even.
   
   ~(2 hrs of thought)
   #Recursive Solution ~(2hrs) :
@@ -29,9 +25,7 @@ Terms :
     
 The program used 2 optimizations that improved it over brute force:
  Optimization 1 (Pruning) :
-      Similar to the strategy of the greedy algorithim the recursive solution does a pruning step in which any machine that is both less efficient and has a later
-      Break_even_Day is removed. This solves the failure point of our greedy algorithim as it now takes in to account that we may want a less efficient machine if        
-      it has an earlier break_even_day.
+ Similar to the strategy of the greedy algorithim the recursive solution does a pruning step in which any machine that is both less efficient and has a later Break_even_Day is removed. This solves the failure point of our greedy algorithim as it now takes in to account that we may want a less efficient machine if       it has an earlier break_even_day.
       
   Optimization 2 (Memoization) :
   Memoization was done saving results at even given level in the recursive tree (see tree below). If our previous results at the same level in the tree had both more total_capital and more efficiency at the same level then we know our resulting cash will be lower than when we had more money and efficiency. If the effiency and total_capital are the same then we know we ahve also slready computed the results.(For this step it is important to note that we should try the Buy branches of the tree first before the not Buy branches as buying a given machine will give us the possibility of having more money and efficiency.)
