@@ -1,4 +1,3 @@
-import time
 from dataclasses import dataclass
 import math
 
@@ -89,7 +88,6 @@ def find_max_profit(machines, starting_money, num_days):
 
 f = open('test.txt', 'r')
 
-startTime = time.time()
 test_case = f.readline().rstrip().split(' ')
 case_num = 1
 while test_case != ['0','0','0']:
@@ -114,5 +112,3 @@ while test_case != ['0','0','0']:
 
     test_case = f.readline().rstrip().split(' ')
     case_num += 1
-executionTime = (time.time() - startTime)
-print(executionTime)
