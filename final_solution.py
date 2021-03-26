@@ -1,5 +1,4 @@
 import time
-from line_profiler import LineProfiler
 from dataclasses import dataclass
 import math
 
@@ -33,58 +32,62 @@ class Machine():
             +')'
         return string
 
-'''
-current_money = [cash, resale, daily_earning, day_calculated, cur_efficency]
+@dataclass
+class Money():
+    cash: int
+    resale_value: int
+    daily_earning: int
+    day_calculated: int
+    current_efficiency: float
 
-memo = machines[
-               for each Machine "[(money_found, efficiency_found), (money_found, efficiency_found)]"
-               ]
 
-machine = d,p,r,g, efficiency_metric, break_even_day, memo_index
-'''
+
 def find_max_profit(machines, starting_money, num_days):
-    current_money_list = [starting_money, 0, 0, 0, 0]
+    current_money = Money(starting_money, 0, 0, 0, 0)
     memo = [[] for i in range(len(machines))]
 
     stack = []
-    stack.append((machines, current_money_list))
+    stack.append((machines, current_money))
     max_profit = 0
 
     while stack:
         machines, current_money = stack.pop(-1)
 
         if len(machines) == 0:
-            total_money = current_money[0] + current_money[1] + (current_money[2] * (num_days - current_money[3]))
-            if total_money > max_profit:
-                max_profit = total_money
+            total_capital = current_money.cash + current_money.resale_value + (current_money.daily_earning * (num_days - current_money.day_calculated))
+            if total_capital > max_profit:
+                max_profit = total_capital
             continue
 
 
         machines = machines.copy()
         machine = machines.pop(0)
-        total_money = current_money[0] + current_money[1] + (current_money[2] * (machine.day_on_sale - current_money[3] -1))
+        total_capital = current_money.cash + current_money.resale_value + (current_money.daily_earning * (machine.day_on_sale - current_money.day_calculated -1))
 
-        if any(m[0] >= total_money and m[1] >= current_money[4]
+        if any(m[0] >= total_capital and m[1] >= current_money.current_efficiency
                for m in memo[machine.index]):
             continue
 
         '''
-        appending not buys first results in a more likely t
+        appending not buys first means we process buys first
+        this allows us to skip not buy scenarios where buying the machine is strictly better in terms of money and efficency
         '''
-        if total_money > machine.price:
-            machines = [x for x in machines if (x.efficency > machine.efficency or x.break_even_day < machine.break_even_day)]
-            stack.append((machines, current_money))
-            current_money_buy = [total_money-machine.price, machine.resale, machine.daily_earning, machine.day_on_sale, machine.efficency]
-            stack.append((machines, current_money_buy))
+        if total_capital > machine.price:
+            # removing machines that can not possibly make us more money than our current machine
+            pruned_machines= [x for x in machines if (x.efficency > machine.efficency or x.break_even_day < machine.break_even_day)]
+            stack.append((pruned_machines, current_money))
+            current_money_buy = Money(total_capital-machine.price, machine.resale, machine.daily_earning, machine.day_on_sale, machine.efficency)
+            stack.append((pruned_machines, current_money_buy))
         else:
             stack.append((machines, current_money))
 
-        memo[machine.index].append((total_money, current_money[4]))
+        memo[machine.index].append((total_capital, current_money.current_efficiency))
 
     return max_profit
 
 
-f = open('input.txt', 'r')
+
+f = open('test.txt', 'r')
 
 startTime = time.time()
 test_case = f.readline().rstrip().split(' ')
@@ -106,14 +109,10 @@ while test_case != ['0','0','0']:
                 machines.append(machine)
     machines = sorted(machines)
 
-    #lp = LineProfiler()
-    #lp_wrapper = lp(find_max_profit)
-    #money = lp_wrapper(machines, current_money, num_days)
-    #lp.print_stats()
     money = find_max_profit(machines, current_money, num_days)
-    print('Case '+str(case_num)+' '+str(money))
+    print('Case '+str(case_num)+': '+str(money))
 
     test_case = f.readline().rstrip().split(' ')
     case_num += 1
 executionTime = (time.time() - startTime)
-print('Execution time in seconds: ' + str(executionTime))
+print(executionTime)

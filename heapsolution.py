@@ -29,6 +29,7 @@ def find_max_profit(machines, starting_money, num_days):
 
         machines = machines.copy()
         machine = machines.pop(0)
+        print('current machine ' + str(machine))
         total_money = current_money[0] + current_money[1] + (current_money[2] * (machine[0] - current_money[3] -1))
 
         if any(m[0] >= total_money and m[1] >= current_money[4]
@@ -51,7 +52,7 @@ def find_max_profit(machines, starting_money, num_days):
     return max_profit
 
 
-f = open('test.txt', 'r')
+f = open('input.txt', 'r')
 
 startTime = time.time()
 case_num = 1
