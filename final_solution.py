@@ -63,6 +63,7 @@ def find_max_profit(machines, starting_money, num_days):
         machine = machines.pop(0)
         total_capital = current_money.cash + current_money.resale_value + (current_money.daily_earning * (machine.day_on_sale - current_money.day_calculated -1))
 
+        # searching our memo to see if we have been at this given level of the tree with strictly better circumstances
         if any(m[0] >= total_capital and m[1] >= current_money.current_efficiency
                for m in memo[machine.index]):
             continue
