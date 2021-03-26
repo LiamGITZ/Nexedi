@@ -1,5 +1,5 @@
 # Nexedi
-#Terms :
+Terms :
 **Efficiency :**
   The money a given machine will make if it is the only purchased machine (regardless of if it can be purchased) divided by the number of days its operates. 
   = ((total_days - day_purchased) * daily_profit_generated) + (price - resale)) / (total_days - day_purchased)
@@ -24,11 +24,24 @@
   
   ~(2 hrs of thought)
   #Recursive Solution ~(2hrs) :
-    Created an algorithim that first calculated the efficiency and break_even_day of each machine. The algori
- p.
+    Created an algorithim that first calculated the efficiency and break_even_day of each machine. The algorithims then recursivley found the best possible  
+    combination of machines using Dynamic Programming.
+    
+    The program used 2 optimizations that improved it over brute force:
+    Optimization 1 :
+      Similar to the strategy of the greedy algorithim the recursive solution does a pruning step in which any machine that is both less efficient and has a later
+      Break_even_Day is removed. This solves the failure point of our greedy algorithim as it now takes in to account that we may want a less efficient machine if        
+      it has an earlier break_even_day.
+      
+Tree:
+      /M3
+   /M2\M3
+ M1
+   \M2/M3
+      \M3
   
   **Failure point**
   RecursionError: maximum recursion depth exceeded while calling a Python object
 
 #Final Solution ~(2hrs) :
-   The same methedology as the recursive solution with the difference of being alcoated on the heap instead of the call stack.
+   The same methedology as the recursive solution with the difference of being alocated on the heap instead of the call stack.
