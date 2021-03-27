@@ -41,6 +41,7 @@ Memoization was done saving results at every given level in the recursive tree (
 ***(For this step it is important to note that we should try the Buy branches of the tree first before the not_Buy, branches as buying a given machine will give us the possibility of having more money and efficiency.)***
       
 Tree:
+
           /M3
        /M2\M3
      M1
