@@ -48,7 +48,7 @@ Tree:
           \M3
  
 #### Failure point
-RecursionError: maximum recursion depth exceeded while calling a Python object\
+RecursionError: maximum recursion depth exceeded while calling a Python object
 
 ## Final Solution ~(2hrs) :
    The same methodology as the recursive solution with the difference of being allocated on the heap instead of the call stack.
