@@ -38,10 +38,9 @@ Similar to the strategy of the greedy algorithm, the recursive solution does a p
       
  #### Optimization 2 (Memoization) :
 Memoization was done saving results at every given level in the recursive tree (see tree below). If our previous results at the same level in the tree had both more total_capital and more efficiency at the same place, then we know our resulting cash will be lower than when we had more money and efficiency. If the efficiency and total_capital are the same, then we know we have already computed the results.\
-***(For this step it is important to note that we should try the Buy branches of the tree first before the not Buy, branches as buying a given machine will give us the possibility of having more money and efficiency.)***
+***(For this step it is important to note that we should try the Buy branches of the tree first before the not_Buy, branches as buying a given machine will give us the possibility of having more money and efficiency.)***
       
 Tree:
-
           /M3
        /M2\M3
      M1
