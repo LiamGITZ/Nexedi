@@ -53,6 +53,7 @@ while test_case != ['0','0','0']:
     num_days = int(test_case[2])
 
     machines = []
+    memo_id = 0
     for i in range(num_machines):
         machine =  list(map(int, f.readline().rstrip().split(' ')))
 
@@ -67,10 +68,12 @@ while test_case != ['0','0','0']:
         if efficency > 0:
             machine.append(efficency)
             machine.append(break_even_day)
-            machine.append(i)
+            machine.append(memo_id)
+            memo_id += 1
             machines.append(machine)
     machines.sort()
 
+    print(machines)
     current_money_list = [current_money, 0, 0, 0, 0]
     memo = [[] for i in range(len(machines))]
     #lp = LineProfiler()
