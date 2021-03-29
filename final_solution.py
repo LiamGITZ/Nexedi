@@ -70,7 +70,7 @@ def find_max_profit(machines, starting_money, num_days):
         appending not-buys first means we process buys first
         this allows us to skip not buy scenarios where buying the machine is strictly better in terms of money and efficency
         '''
-        if total_capital > machine.price:
+        if total_capital >= machine.price:
             # removing machines that can not possibly make us more money than our current machine
             pruned_machines= [x for x in machines if (x.efficency > machine.efficency or x.break_even_day < machine.break_even_day)]
             stack.append((pruned_machines, current_money))
@@ -95,9 +95,10 @@ while test_case != ['0','0','0']:
     num_days = int(test_case[2])
 
     machines = []
+    memo_index = 0
     for i in range(num_machines):
         read_machine =  list(map(int, f.readline().rstrip().split(' ')))
-        machine = Machine(read_machine[0], read_machine[1], read_machine[2], read_machine[3], 0, num_days+1, i)
+        machine = Machine(read_machine[0], read_machine[1], read_machine[2], read_machine[3], 0, num_days+1, memo_index)
 
         if machine.day_on_sale != num_days:
             machine.efficency =  (((num_days - machine.day_on_sale) * machine.daily_earning) + 
@@ -107,6 +108,7 @@ while test_case != ['0','0','0']:
 
             if machine.efficency > 0:
                 machines.append(machine)
+                memo_index += 1
     # sorted first by day_on_sale, second by efficency, and finally by break_even_day
     machines = sorted(machines)
 

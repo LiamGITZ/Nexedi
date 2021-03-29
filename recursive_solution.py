@@ -27,7 +27,7 @@ def find_max_profit(machines, current_money, num_days, memo):
             return 0, []
 
     buy = 0
-    if total_money > machine[1]:
+    if total_money >= machine[1]:
         machines = [x for x in machines if (x[4] > machine[4] or x[5] < machine[5])]
         current_money_buy = [total_money-machine[1], machine[2], machine[3], machine[0], machine[4]]
         buy, buy_machines = find_max_profit(machines, current_money_buy, num_days, memo)
@@ -42,7 +42,7 @@ def find_max_profit(machines, current_money, num_days, memo):
 
 
 
-f = open('test.txt', 'r')
+f = open('input.txt', 'r')
 
 startTime = time.time()
 test_case = f.readline().rstrip().split(' ')
